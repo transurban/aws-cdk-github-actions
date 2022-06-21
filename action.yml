@@ -26,6 +26,10 @@ inputs:
   debug_log:
     description: 'Enable debug-log'
     default: false
+  github_token:
+    description: 'Provide a custom Github Personal Access Token (PAT)'
+  github_private_path:
+    description: 'Path to a private Github repo/organisation. i.e github.com/<org name here>'
 outputs:
   status_code:
     description: 'Returned status code.'

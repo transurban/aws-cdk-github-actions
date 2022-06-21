@@ -10,6 +10,12 @@ function parseInputs(){
 	fi
 }
 
+function configurePrivateGitPath(){
+  if [ -n "${INPUT_GITHUB_TOKEN}" ] && [ -n "${INPUT_GITHUB_PRIVATE_PATH}" ]; then
+    git config --global url."https://${INPUT_GITHUB_TOKEN}:x-oauth-basic@${INPUT_GITHUB_PRIVATE_PATH}".insteadOf "https://${INPUT_GITHUB_PRIVATE_PATH}"
+    fi
+}
+
 function installTypescript(){
 	npm install typescript
 }
@@ -98,7 +104,8 @@ ${output}
 
 function main(){
 	parseInputs
-	cd ${GITHUB_WORKSPACE}/${INPUT_WORKING_DIR}
+	configurePrivateGitPath
+	cd ${GITHUB_WORKSPACE}/${INPUT_WORKING_DIR} || exit 1
 	installTypescript
 	installAwsCdk
 	installPipRequirements
