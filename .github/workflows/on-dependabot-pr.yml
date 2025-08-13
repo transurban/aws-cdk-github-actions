@@ -1,0 +1,16 @@
+name: Dependabot PR → Jira Card
+
+# on:
+#   pull_request:
+#     types: [opened]
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-dependabot-pr:
+    uses: transurban/github-action-templates/.github/workflows/create-jira-card-on-dependabot-pr.yml@Add-New-Github-Rulesets
+    secrets: 
+      JIRA_USER: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_USER_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_API_TOKEN }}
+      JIRA_BASE_URL: ${{ secrets.ATLASSIAN_JIRA_BASE_URL }}

@@ -1,0 +1,23 @@
+name: Validate Jira Commit
+
+# on:
+#   push:
+#     branches: ['**']
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_messages:
+        description: "Paste one or more commit messages"
+        required: true
+        type: string
+
+jobs:
+  jira-check:
+    uses: transurban/github-action-templates/.github/workflows/jira-check-valid-key-commit.yml@Add-New-Github-Rulesets
+    with:
+      commit_messages: ${{ inputs.commit_messages }}
+    secrets:
+      JIRA_USER: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_USER_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_API_TOKEN }}
+      JIRA_BASE_URL: ${{ secrets.ATLASSIAN_JIRA_BASE_URL }}
