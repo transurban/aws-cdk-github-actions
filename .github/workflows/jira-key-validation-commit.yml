@@ -1,10 +1,13 @@
 name: Validate Jira Commit
+#Author: Thomas Hyland
 
-# on:
-#   push:
-#     branches: ['**']
+permissions:
+  contents: read
+  pull-requests: read
 
 on:
+#   push:
+#     branches: ['**']
   workflow_dispatch:
     inputs:
       commit_messages:
@@ -16,7 +19,7 @@ jobs:
   jira-check:
     uses: transurban/github-action-templates/.github/workflows/jira-check-valid-key-commit.yml@Add-New-Github-Rulesets
     with:
-      commit_messages: ${{ inputs.commit_messages }}
+      commit_messages: ${{ github.event_name == 'push' && join(github.event.commits.*.message, '\n') || inputs.commit_messages }}
     secrets:
       JIRA_USER: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_USER_EMAIL }}
       JIRA_API_TOKEN: ${{ secrets.ATLASSIAN_JIRA_GITHUB_ACTION_API_TOKEN }}

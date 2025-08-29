@@ -1,14 +1,17 @@
 name: Trigger Issue Closed → Jira Card Transition
+#Author: Thomas Hyland
 
-# on:
-#   issues:
-#     types: [closed]
+permissions:
+  contents: read
+  issues: read
 
 on:
+#   issues:
+#     types: [closed]
   workflow_dispatch:
     inputs:
       issue_title:
-        description: Title of the issue to mirror to Jira
+        description: Title of the issue to mirror to Jira!
         required: true
       owner:
         description: GitHub owner/org
